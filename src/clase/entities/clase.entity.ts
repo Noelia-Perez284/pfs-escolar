@@ -1,0 +1,26 @@
+import { Escuela } from "src/escuela/entities/escuela.entity";
+import { Profesor } from "src/profesores/entities/profesore.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
+@Entity('clases')
+export class Clase {
+    @PrimaryGeneratedColumn()
+    idClase:number;
+
+    @Column()
+    nombre:string;
+
+    @ManyToOne((type)=> Escuela, (escuela)=>escuela.clases)
+    @JoinColumn()
+    escuela:Escuela;
+
+    @ManyToOne((type)=> Profesor,(profesor)=>profesor.clases)
+    @JoinColumn()
+    profesor:Profesor;
+
+    constructor(nombre:string,escuela:Escuela,profesor:Profesor){
+        this.nombre=nombre;
+        this.escuela=escuela;
+        this.profesor=profesor;
+    }
+}
